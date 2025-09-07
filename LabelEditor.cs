@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json; // Make sure you have Newtonsoft.Json installed
+using Newtonsoft.Json.Linq;
 
 namespace LabelEditorApp
 {
@@ -72,6 +76,9 @@ namespace LabelEditorApp
 
         // Context menu for canvas objects (layering/deletion).
         private ContextMenuStrip contextMenu;
+
+        // Context menu for AI text operations.
+        private ContextMenuStrip aiContextMenu;
 
         // Variables to support drag–drop, resizing, and rotation.
         private CanvasObject selectedObject;
@@ -266,6 +273,17 @@ namespace LabelEditorApp
             };
             txtEditText.TextChanged += TxtEditText_TextChanged;
             tabText.Controls.Add(txtEditText);
+
+            // Context menu with AI-powered actions
+            aiContextMenu = new ContextMenuStrip();
+            ToolStripMenuItem rewriteItem = new ToolStripMenuItem("Rewrite with AI");
+            rewriteItem.Click += RewriteItem_Click;
+            ToolStripMenuItem summarizeItem = new ToolStripMenuItem("Summarize with AI");
+            summarizeItem.Click += SummarizeItem_Click;
+            ToolStripMenuItem translateItem = new ToolStripMenuItem("Translate to Spanish");
+            translateItem.Click += TranslateItem_Click;
+            aiContextMenu.Items.AddRange(new ToolStripItem[] { rewriteItem, summarizeItem, translateItem });
+            txtEditText.ContextMenuStrip = aiContextMenu;
 
             // --- Formatting Controls ---
             // Font Family ComboBox
@@ -859,6 +877,66 @@ namespace LabelEditorApp
             catch (Exception ex)
             {
                 MessageBox.Show("Error editing text: " + ex.Message);
+            }
+        }
+
+        private async void RewriteItem_Click(object sender, EventArgs e)
+        {
+            string prompt = $"Rewrite the following text:\n\n{txtEditText.Text}";
+            await ReplaceTextWithOpenAIAsync(prompt);
+        }
+
+        private async void SummarizeItem_Click(object sender, EventArgs e)
+        {
+            string prompt = $"Summarize the following text:\n\n{txtEditText.Text}";
+            await ReplaceTextWithOpenAIAsync(prompt);
+        }
+
+        private async void TranslateItem_Click(object sender, EventArgs e)
+        {
+            string prompt = $"Translate the following text into Spanish:\n\n{txtEditText.Text}";
+            await ReplaceTextWithOpenAIAsync(prompt);
+        }
+
+        private async Task ReplaceTextWithOpenAIAsync(string prompt)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+                    if (string.IsNullOrEmpty(apiKey))
+                    {
+                        MessageBox.Show("OPENAI_API_KEY is not set.");
+                        return;
+                    }
+
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+                    var requestBody = new
+                    {
+                        model = "gpt-3.5-turbo",
+                        messages = new[]
+                        {
+                            new { role = "user", content = prompt }
+                        }
+                    };
+
+                    string json = JsonConvert.SerializeObject(requestBody);
+                    using var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync("https://api.openai.com/v1/chat/completions", content);
+                    string responseText = await response.Content.ReadAsStringAsync();
+
+                    var obj = JObject.Parse(responseText);
+                    string result = (string)obj["choices"]?[0]?["message"]?["content"];
+                    if (!string.IsNullOrWhiteSpace(result))
+                    {
+                        txtEditText.Text = result.Trim();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("OpenAI request failed: " + ex.Message);
             }
         }
 
