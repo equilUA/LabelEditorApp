@@ -1,0 +1,114 @@
+{
+  "$type": "LabelEditorApp.CanvasSaveData, LabelEditorApp",
+  "CanvasSize": "500, 600",
+  "Objects": {
+    "$type": "System.Collections.Generic.List`1[[LabelEditorApp.CanvasObject, LabelEditorApp]], mscorlib",
+    "$values": [
+      {
+        "$type": "LabelEditorApp.TextCanvasObject, LabelEditorApp",
+        "Text": "RO#: [RONumber]",
+        "Font": "Arial, 16pt",
+        "ForeColor": "Black",
+        "Bounds": "100, 100, 200, 30",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.TextCanvasObject, LabelEditorApp",
+        "Text": "Date: [Date]",
+        "Font": "Arial, 16pt",
+        "ForeColor": "Black",
+        "Bounds": "105, 248, 200, 30",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.TextCanvasObject, LabelEditorApp",
+        "Text": "Mileage: [Mileage]",
+        "Font": "Arial, 16pt",
+        "ForeColor": "Black",
+        "Bounds": "103, 202, 200, 30",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.TextCanvasObject, LabelEditorApp",
+        "Text": "Oil: [OilDesc]",
+        "Font": "Arial, 16pt",
+        "ForeColor": "Black",
+        "Bounds": "100, 154, 200, 30",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.TextCanvasObject, LabelEditorApp",
+        "Text": "Next Date: [NextDate]",
+        "Font": "Arial, 16pt",
+        "ForeColor": "Black",
+        "Bounds": "106, 295, 200, 30",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.TextCanvasObject, LabelEditorApp",
+        "Text": "Next Mileage: [NextMileage]",
+        "Font": "Arial, 16pt",
+        "ForeColor": "Black",
+        "Bounds": "105, 340, 200, 30",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.TextCanvasObject, LabelEditorApp",
+        "Text": "[Notes]",
+        "Font": "Arial, 16pt",
+        "ForeColor": "Black",
+        "Bounds": "111, 398, 200, 30",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.QRCodeCanvasObject, LabelEditorApp",
+        "Data": "test",
+        "QRImage": "System.Drawing.Bitmap",
+        "Bounds": "287, 168, 150, 150",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      },
+      {
+        "$type": "LabelEditorApp.ImageCanvasObject, LabelEditorApp",
+        "ImagePath": "C:\\Doc\\Work\\LabelPrinter\\protractor-favicon.png",
+        "Bounds": "329, 105, 50, 54",
+        "Rotation": 0.0,
+        "Opacity": 1.0,
+        "StrokeColor": "Black",
+        "FillColor": "Transparent",
+        "ZIndex": 0
+      }
+    ]
+  }
+}
