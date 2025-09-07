@@ -1,10 +1,5 @@
 ﻿using QRCoder;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LabelEditorApp
 {
@@ -12,13 +7,14 @@ namespace LabelEditorApp
     {
         public static Image GenerateQRCode(string text, Size size)
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-            // Resize the QR code to match the desired size.
-            Bitmap resized = new Bitmap(qrCodeImage, size);
-            return resized;
+            using (var qrGenerator = new QRCodeGenerator())
+            using (var qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q))
+            using (var qrCode = new QRCode(qrCodeData))
+            using (var qrCodeImage = qrCode.GetGraphic(20))
+            {
+                // Resize the QR code to match the desired size.
+                return new Bitmap(qrCodeImage, size);
+            }
         }
     }
 }
